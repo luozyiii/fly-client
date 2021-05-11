@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>user</title>
+  <link rel="stylesheet" type="text/css" href="public/css/user.css" />
+</head>
+<body>
+  <% include user-header.html %>
+  user page...
+  <br />
+  <button onclick="login()">登录</button><br />
+  <button onclick="logout()">注销</button><br />
+
+  <% if(user) { %>
+    已经登录<%= user.name %>
+  <% }else { %>
+    未登录
+  <% } %>
+
+  <br />
+  <div>中文zh:<%= zh %></div>
+  <div>中文base64:<%= base64 %></div>
+  id:<%= id %>
+  <br />
+  <%# 注释 %>
+  name:<%= name %>
+  <br />
+  <ul id="user">
+    <% for(var i=0; i<list.length; i++){ %>
+      <li><%= list[i] %></li>
+    <% } %>
+  </ul>
+  <img style="width:200px" src="public/img/2.jpeg" />
+  <script src="public/js/user.js"></script>
+</body>
+</html>
