@@ -37,6 +37,27 @@ class UserController extends Controller {
       };
     }
   }
+
+  async login() {
+    const { ctx } = this;
+    const { username, password } = await ctx.request.body;
+    const user = await ctx.service.user.getUser(username, password);
+    if (user) {
+      ctx.session.userId = user.id;
+      ctx.body = {
+        status: 200,
+        data: {
+          ...ctx.helper.unPick(user.dataValues, [ 'password' ]),
+          createTime: ctx.helper.timestamp(user.createTime),
+        },
+      };
+    } else {
+      ctx.body = {
+        status: 500,
+        errMsg: '该用户不存在',
+      };
+    }
+  }
 }
 
 module.exports = UserController;

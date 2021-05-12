@@ -1,4 +1,4 @@
-### 注册登录接口
+### 注册接口
 
 - 目录
 /app/controller/user.js
@@ -53,3 +53,10 @@ unPick(source, arr) {
 // 使用
 
 ```
+
+### 登录接口
+与注册类似
+- 目录
+/app/controller/user.js
+/app/service/user.js
+/router.js
