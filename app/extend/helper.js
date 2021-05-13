@@ -7,7 +7,7 @@ module.exports = {
   },
   // 当前时间
   time() {
-    return dayjs().format('YYYY-MM-DD HH:hh:ss');
+    return dayjs().format('YYYY-MM-DD HH:mm:ss');
   },
   // 转时间戳
   timestamp(data) {
