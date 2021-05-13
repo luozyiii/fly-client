@@ -15,5 +15,5 @@ module.exports = app => {
     },
   };
   // console.log('aaa:', app.config.coreMiddleware);
-  // app.config.coreMiddleware.push('auth');
+  app.config.coreMiddleware.push('auth');
 };

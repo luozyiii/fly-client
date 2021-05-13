@@ -26,7 +26,7 @@ module.exports = appInfo => {
 
   // 插件auth 配置
   config.auth = {
-    exclude: [ '/home', '/user', '/login', '/logout' ],
+    exclude: [ '/api/user/login', '/api/user/register' ],
   };
 
   // 数据库 mysql
