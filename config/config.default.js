@@ -18,7 +18,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1620301657564_1710';
 
   // add your middleware config here
-  config.middleware = [ 'httpLog' ];
+  config.middleware = [ 'httpLog', 'userExist' ];
 
   config.httpLog = {
     type: 'all',
