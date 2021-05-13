@@ -86,5 +86,40 @@ config.jwt = {
 ```
 
 ### Redis 
-Redis 是一个基于内存的高性能key-value数据库。具有存储速度快、支持丰富的数据类型、过期后自动删除缓存等特点。
+>Redis 是一个基于内存的高性能key-value数据库。具有存储速度快、支持丰富的数据类型、过期后自动删除缓存等特点。
+
+用户信息存放在session 上不利于多台服务部署，而且服务器stop，session会被销毁
+
+```javascript
+yarn add egg-redis
+
+// /config/plugin.js
+exports.redis = {
+  enable: true,
+  package: 'egg-redis',
+};
+
+// /config/config.default.js
+config.redis = {
+  client: {
+    port: 6379,
+    host: '127.0.0.1',
+    password: 'abc123456',
+    db: 0,
+  },
+};
+
+// 设置redis 过期时间常量
+const userConfig = {
+  // myAppName: 'egg',
+  salt: 'fly', // 密码后缀
+  redisExpire: 60 * 60 * 24, // 过期时间常量
+};
+
+// 登录时设置
+app.redis.set(username, 1, 'EX', app.config.redisExpire); // 1天过期
+
+// 退出登录
+app.redis.del(ctx.username);
+```
 

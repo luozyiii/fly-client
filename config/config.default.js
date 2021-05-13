@@ -79,6 +79,15 @@ module.exports = appInfo => {
     secret: 'fly', // 密钥
   };
 
+  config.redis = {
+    client: {
+      port: 6379,
+      host: '127.0.0.1',
+      password: 'abc123456',
+      db: 0,
+    },
+  };
+
   // 静态资源的配置 egg-static 将资源的存放目录更改为 app/assets
   // config.static = {
   //   prefix: '/assets/',
@@ -96,7 +105,8 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
-    salt: 'fly',
+    salt: 'fly', // 密码后缀
+    redisExpire: 60 * 60 * 24, // 过期时间常量
   };
 
   return {

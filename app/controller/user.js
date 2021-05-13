@@ -10,7 +10,8 @@ class UserController extends Controller {
     const token = app.jwt.sign({
       username,
     }, app.config.jwt.secret);
-    ctx.session[username] = 1;
+    // ctx.session[username] = 1;
+    app.redis.set(username, 1, 'EX', app.config.redisExpire); // 1天过期
     return token;
   }
   async register() {
@@ -90,9 +91,10 @@ class UserController extends Controller {
     }
   }
   async logout() {
-    const { ctx } = this;
+    const { ctx, app } = this;
     try {
-      ctx.session[ctx.username] = null;
+      // ctx.session[ctx.username] = null;
+      app.redis.del(ctx.username);
       ctx.body = {
         status: 200,
         data: 'ok',
