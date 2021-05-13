@@ -130,7 +130,7 @@ app.redis.del(ctx.username);
 
 - 中间件userExist.js
 ```javascript
-// config.default.js
+// config.default.js 在这个位置配置 是全局生效，我们需要针对接口单独配置；故采用下面的配置
 config.middleware = [ 'httpLog', 'userExist' ];
 
 // router.js
