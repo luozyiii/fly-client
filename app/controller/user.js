@@ -4,6 +4,15 @@ const Controller = require('egg').Controller;
 const md5 = require('md5');
 
 class UserController extends Controller {
+  async jwtSign() {
+    const { ctx, app } = this;
+    const username = ctx.request.body.username;
+    const token = app.jwt.sign({
+      username,
+    }, app.config.jwt.secret);
+    ctx.session[username] = 1;
+    return token;
+  }
   async register() {
     const { ctx, app } = this;
     const parmas = ctx.request.body;
@@ -18,16 +27,18 @@ class UserController extends Controller {
     const result = await ctx.service.user.add(
       {
         ...parmas,
-        password: md5(parmas.password) + app.config.salt,
+        password: md5(parmas.password + app.config.salt),
         createTime: ctx.helper.time(),
       });
     if (result) {
       // console.log(result);
+      const token = await this.jwtSign();
       ctx.body = {
         status: 200,
         data: {
           ...ctx.helper.unPick(result.dataValues, [ 'password' ]),
           createTime: ctx.helper.timestamp(result.createTime),
+          token,
         },
       };
     } else {
@@ -43,7 +54,27 @@ class UserController extends Controller {
     const { username, password } = await ctx.request.body;
     const user = await ctx.service.user.getUser(username, password);
     if (user) {
-      ctx.session.userId = user.id;
+      const token = await this.jwtSign();
+      ctx.body = {
+        status: 200,
+        data: {
+          ...ctx.helper.unPick(user.dataValues, [ 'password' ]),
+          createTime: ctx.helper.timestamp(user.createTime),
+          token,
+        },
+      };
+    } else {
+      ctx.body = {
+        status: 500,
+        errMsg: '该用户不存在',
+      };
+    }
+  }
+  async detail() {
+    const { ctx } = this;
+    console.log('ctx.username:', ctx.username);
+    const user = await ctx.service.user.getUser(ctx.username);
+    if (user) {
       ctx.body = {
         status: 200,
         data: {
@@ -55,6 +86,21 @@ class UserController extends Controller {
       ctx.body = {
         status: 500,
         errMsg: '该用户不存在',
+      };
+    }
+  }
+  async logout() {
+    const { ctx } = this;
+    try {
+      ctx.session[ctx.username] = null;
+      ctx.body = {
+        status: 200,
+        data: 'ok',
+      };
+    } catch (error) {
+      ctx.body = {
+        status: 500,
+        errMsg: '退出登录失败',
       };
     }
   }

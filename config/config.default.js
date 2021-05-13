@@ -75,6 +75,10 @@ module.exports = appInfo => {
     delimiter: '%', // 全局修改分隔符
   };
 
+  config.jwt = {
+    secret: 'fly', // 密钥
+  };
+
   // 静态资源的配置 egg-static 将资源的存放目录更改为 app/assets
   // config.static = {
   //   prefix: '/assets/',

@@ -29,7 +29,7 @@ class UserService extends Service {
     }
   }
 
-  async login() {
+  async edit() {
     try {
 
     } catch (error) {
