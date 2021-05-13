@@ -24,13 +24,16 @@ class UserService extends BaseService {
     });
   }
 
-  async edit() {
-    try {
-
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
+  async edit(params) {
+    return this.run(async () => {
+      const { ctx } = this;
+      const result = await ctx.model.User.update(params, {
+        where: {
+          username: ctx.username,
+        },
+      });
+      return result;
+    });
   }
 }
 
