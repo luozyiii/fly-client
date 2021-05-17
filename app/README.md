@@ -234,3 +234,35 @@ startTime: {
   },
 },
 ```
+
+### 评论列表和添加评论接口
+```javascript
+// 添加路由
+router.post('/api/comment/add', controller.comment.add);
+router.post('/api/comment/lists', controller.comment.lists);
+
+// model/comment.js
+// 特别注意 多对一
+Comment.associate = () => {
+  app.model.Comment.belongsTo(app.model.User, { foreignKey: 'userId' });
+};
+
+// service/comment.js
+ const { pageNum, pageSize, userId, houseId } = params;
+  const where = {
+    userId,
+    houseId,
+  };
+  const result = await ctx.model.Comment.findAll({
+    limit: pageSize,
+    offset: (pageNum - 1) * pageSize,
+    where,
+    include: [
+      {
+        model: app.model.User,
+        attributes: [ 'avatar', 'username' ],
+      },
+    ], // 多对一 的配置
+  });
+  return result;
+```
