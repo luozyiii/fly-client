@@ -18,6 +18,9 @@ class CommentService extends BaseService {
         houseId,
       };
       const result = await ctx.model.Comment.findAll({
+        order: [
+          [ 'createTime', 'DESC' ],
+        ],
         limit: pageSize,
         offset: (pageNum - 1) * pageSize,
         where,
