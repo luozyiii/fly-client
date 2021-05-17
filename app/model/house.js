@@ -15,5 +15,10 @@ module.exports = app => {
     endTime: DATE,
   });
 
+  // 一个房子对应多个图片 hasMany; 表关联
+  House.associate = () => {
+    app.model.House.hasMany(app.model.Imgs, { foreignKey: 'houseId' });
+  };
+
   return House;
 };

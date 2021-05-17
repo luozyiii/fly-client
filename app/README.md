@@ -177,3 +177,29 @@ app.config.coreMiddleware.push('notFound');
 
 ```
 
+### 获取城市列表数据，基于Sequelize多表联查编写热门民宿接口
+- 目录
+app/controller/commons.js
+>利用httpclient 转发第三方接口
+
+### 热门民宿接口
+>基本流程：编写路由(指定控制器) => 控制器(调用service) => service(操作数据库) 
+
+```javascript
+/api/house/hot
+
+// model/house
+// 一个房子对应多个图片 hasMany; 表关联
+House.associate = () => {
+  app.model.House.hasMany(app.model.Imgs, { foreignKey: 'houseId' });
+};
+
+// serive/house
+include: [
+  {
+    model: app.model.Imgs,
+    limit: 1,
+    attributes: [ 'url' ],
+  },
+], // 与Imgs图片表关联
+```
