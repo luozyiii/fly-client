@@ -216,3 +216,21 @@ where
 [like]: `%${houseSubmitName}%`,
 ```
 
+### 民宿详情接口
+- 更新浏览次数
+```javascript
+await ctx.model.House.update({
+  showCount: result.showCount + 1,
+}, { where: { id } });
+```
+
+- model 下控制返回时间是时间戳
+```javascript
+//  model/house.js
+startTime: {
+  type: DATE,
+  get() {
+    return new Date(this.getDataValue('startTime')).getTime();
+  },
+},
+```

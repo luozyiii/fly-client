@@ -5,14 +5,22 @@ const BaseController = require('./base');
 
 class HouseController extends BaseController {
   async hot() {
-    const { ctx, app } = this;
+    const { ctx } = this;
     const result = await ctx.service.house.hot();
     this.success(result);
   }
   async search() {
-    const { ctx, app } = this;
+    const { ctx } = this;
     const result = await ctx.service.house.search(ctx.params());
     this.success(result);
+  }
+  async detail() {
+    const { ctx } = this;
+    const result = await ctx.service.house.detail(ctx.params());
+    this.success({
+      info: result,
+      banner: result.imgs,
+    });
   }
 }
 

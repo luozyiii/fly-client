@@ -57,6 +57,28 @@ class HouseService extends BaseService {
       return result;
     });
   }
+
+  async detail(params) {
+    return this.run(async (ctx, app) => {
+      const { id } = params;
+      const result = await ctx.model.House.findOne({
+        where: { id },
+        include: [
+          {
+            model: app.model.Imgs,
+            limit: 1,
+            attributes: [ 'url' ],
+          },
+        ],
+      });
+
+      // 更新浏览次数
+      await ctx.model.House.update({
+        showCount: result.showCount + 1,
+      }, { where: { id } });
+      return result;
+    });
+  }
 }
 
 module.exports = HouseService;
