@@ -203,3 +203,16 @@ include: [
   },
 ], // 与Imgs图片表关联
 ```
+
+### 搜索接口
+```javascript
+// 分页查询
+offset: (pageNum - 1) * pageSize,
+
+// 条件查询
+where
+
+// 模糊查询
+[like]: `%${houseSubmitName}%`,
+```
+
