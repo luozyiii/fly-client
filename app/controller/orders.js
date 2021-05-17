@@ -27,7 +27,15 @@ class OrdersController extends BaseController {
     const user = await ctx.service.user.getUser(ctx.username);
     const result = await ctx.service.orders.delOrder(ctx.params('id'));
     this.success(result);
-
+  }
+  async lists() {
+    const { ctx } = this;
+    const user = await ctx.service.user.getUser(ctx.username);
+    const result = await ctx.service.orders.lists({
+      userId: user.id,
+      ...ctx.params(),
+    });
+    this.success(result);
   }
 }
 
