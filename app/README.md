@@ -138,3 +138,42 @@ const userExist = app.middleware.userExist();
 router.post('/api/user/detail', userExist, controller.user.detail);
 ```
 
+### 插件egg-notFound开发
+>全局处理接口404
+
+```javascript
+// 目录
+lib/plugin/egg-notFound
+
+'use strict';
+/**
+ * 该插件用于处理接口404
+*/
+module.exports = options => {
+  return async (ctx, next) => {
+    // console.log(ctx.app.router);
+    const flag = ctx.app.router.stack.filter(item => {
+      return item.regexp.test(ctx.request.url);
+    });
+    if (flag.length) {
+      await next();
+    } else {
+      ctx.body = {
+        status: 404,
+        errMsg: `接口${ctx.request.url}不存在`,
+      };
+    }
+  };
+};
+
+// 在config/plugin.js 配置
+exports.notFound = {
+  enable: true,
+  path: path.join(__dirname, '../lib/plugin/egg-notFound'),
+};
+
+// app.js 上引用
+app.config.coreMiddleware.push('notFound');
+
+```
+
