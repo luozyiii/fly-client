@@ -266,3 +266,7 @@ Comment.associate = () => {
   });
   return result;
 ```
+
+# 编写预定和取消预定民宿接口，与前端联调
+
+# 订单接口
