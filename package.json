@@ -33,6 +33,7 @@
   },
   "scripts": {
     "start": "egg-scripts start --daemon --title=egg-server-egg-best",
+    "prod": "EGG_SERVER_ENV=prod egg-scripts start --title=egg-server-egg-best",
     "stop": "egg-scripts stop --title=egg-server-egg-best",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",

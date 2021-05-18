@@ -335,3 +335,79 @@ Comment.associate = () => {
 2，查询redis，有缓存，返回返回接口
 3，没有缓存，将接口返回结果保存到redis中
 ```
+
+### 项目部署
+- mysql
+```javascript
+// 查询镜像
+docker search mysql
+
+// 拉取最新镜像
+docker pull mysql:latest
+
+// 查看本地镜像
+docker images
+
+// 运行容器
+docker run -itd --name 容器名 -p 3307:3306 -e MYSQL_ROOT_PASSWORD=abc123456 镜像ID
+
+// 查看运行中容器； -a 全部
+docker ps
+
+// 进入容器内部
+docker exec -it  容器ID sh
+
+// 查看数据库
+show databases;
+
+// 使用某个数据库
+use 数据库名称;
+
+// 查看表
+show tables;
+
+// 退出
+exit
+```
+
+- redis
+```javascript
+// 拉取镜像
+docker pull redis:latest
+
+// 删除镜像
+docker rmi 镜像ID
+
+// 运行
+docker run -d -p 6379:6379 --name redis bc8d70f9ef6c(镜像ID) --requirepass abc123456
+
+// 进入容器
+docker exec -it ac973b986754(容器ID) sh
+redis-cli -a abc123456
+
+// 操作
+set a 10
+get a
+del a
+```
+
+- 服务部署到node环境
+```javascript
+// 拷贝代码到远程服务器
+scp -rp egg.zip root@112.74.201.142:/home/fly
+
+// 安装解压
+yum install -y unzip zip
+
+// 解压到server目录
+unzip -u -d server egg.zip
+
+// 构建一个镜像
+docker build -t egg-fly:v1.0 ./server
+
+// 运行
+docker run -d -p 7001:7001 --name server 镜像ID
+
+```
+
+- ngnix
