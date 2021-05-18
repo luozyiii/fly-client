@@ -30,7 +30,7 @@ module.exports = appInfo => {
   };
 
   // 配置允许请求的host
-  config.allowHosts = [ '112.74.201.142:8000' ];
+  config.allowHosts = [ 'localhost:8080', '127.0.0.1:8080', '112.74.201.142' ];
 
   // 接口限流配置
   config.interfaceLimit = {
@@ -42,19 +42,6 @@ module.exports = appInfo => {
   config.interfaceCache = {
     expire: 10,
     include: [ '/api/user/detail' ],
-  };
-
-  // 数据库 mysql
-  config.mysql = {
-    app: true,
-    agent: false,
-    client: {
-      host: '112.74.201.142',
-      port: '3307',
-      user: 'root',
-      password: 'abc123456',
-      database: 'egg',
-    },
   };
 
   // sequelize
@@ -104,10 +91,10 @@ module.exports = appInfo => {
   };
 
   // 静态资源的配置 egg-static 将资源的存放目录更改为 app/assets
-  // config.static = {
-  //   prefix: '/assets/',
-  //   dir: path.join(appInfo.baseDir, 'app/assets'),
-  // };
+  config.static = {
+    prefix: '/assets/',
+    dir: path.join(appInfo.baseDir, 'app/assets'),
+  };
 
   // session 配置
   // config.session = {

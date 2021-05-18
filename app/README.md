@@ -405,8 +405,8 @@ unzip -u -d server egg.zip
 // 构建一个镜像
 docker build -t egg-fly:v1.0 ./server
 
-// 运行
-docker run -d -p 7001:7001 --name server 镜像ID
+// 运行容器
+docker run -d -p 7001:7001 --name fly-client 镜像ID
 
 ```
 
