@@ -94,6 +94,7 @@ class UserController extends BaseController {
     const result = await ctx.service.user.edit({
       ...ctx.params(),
       updateTime: ctx.helper.time(),
+      sign: ctx.helper.escape(ctx.params('sign')), // 防御xss攻击
     });
     this.success(result);
   }

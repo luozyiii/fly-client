@@ -29,6 +29,21 @@ module.exports = appInfo => {
     exclude: [ '/api/user/login', '/api/user/register' ],
   };
 
+  // 配置允许请求的host
+  config.allowHosts = [ 'localhost:8080', '127.0.0.1:8080', '10.0.9.4:8000' ];
+
+  // 接口限流配置
+  config.interfaceLimit = {
+    maxCount: 3, // 最多请求个数
+    time: 3 * 1000, // 间隔时间
+  };
+
+  // 接口缓存配置
+  config.interfaceCache = {
+    expire: 10,
+    include: [ '/api/user/detail' ],
+  };
+
   // 数据库 mysql
   config.mysql = {
     app: true,
