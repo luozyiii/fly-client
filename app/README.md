@@ -357,6 +357,9 @@ docker ps
 // 进入容器内部
 docker exec -it  容器ID sh
 
+// 登录数据库;接着输入密码
+mysql -uroot -p
+
 // 查看数据库
 show databases;
 
@@ -406,7 +409,7 @@ unzip -u -d server egg.zip
 docker build -t egg-fly:v1.0 ./server
 
 // 运行容器
-docker run -d -p 7001:7001 --name fly-client 镜像ID
+docker run -d -p 7001:7001 --name fly-client fd0dca8fa8b3(镜像ID)
 
 ```
 
