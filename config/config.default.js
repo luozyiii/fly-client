@@ -45,17 +45,17 @@ module.exports = appInfo => {
   };
 
   // 数据库 mysql
-  config.mysql = {
-    app: true,
-    agent: false,
-    client: {
-      host: '127.0.0.1',
-      port: '3306',
-      user: 'root',
-      password: 'luo924361501',
-      database: 'egg',
-    },
-  };
+  // config.mysql = {
+  //   app: true,
+  //   agent: false,
+  //   client: {
+  //     host: '127.0.0.1',
+  //     port: '3306',
+  //     user: 'root',
+  //     password: 'luo924361501',
+  //     database: 'egg',
+  //   },
+  // };
 
   // sequelize
   config.sequelize = {

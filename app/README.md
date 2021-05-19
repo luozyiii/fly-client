@@ -394,8 +394,31 @@ get a
 del a
 ```
 
-- 服务部署到node环境
+- 部署到node环境
 ```javascript
+// 拉取node镜像
+docker pull node:latest
+
+
+// 编写Dockerfile
+# 使用node镜像
+FROM docker.io/node
+# 在容器中新建目录文件夹 egg
+RUN mkdir -p /egg
+# 将 /egg 设置为默认工作目录
+WORKDIR /egg
+# 将 package.json 复制默认工作目录
+COPY package.json /egg/package.json
+# 安装依赖
+RUN yarn config set register https://registry.npm.taobao.org
+RUN yarn --production
+# 再copy代码至容器
+COPY ./ /egg
+#7001端口
+EXPOSE 7001
+#等容器启动之后执行脚本
+CMD yarn prod
+
 // 拷贝代码到远程服务器
 scp -rp egg.zip root@112.74.201.142:/home/fly
 
@@ -414,3 +437,23 @@ docker run -d -p 7001:7001 --name fly-client fd0dca8fa8b3(镜像ID)
 ```
 
 - ngnix
+```javascript
+// 将nginx代码拷贝到服务器
+scp -rp nginx root@112.74.201.142:/home/fly
+
+// nginx 服务部署,映射本地目录到nginx容器
+docker run -d -p 80:80 --name nginx-fly \
+  -v /home/fly/nginx/logs:/var/log/nginx \
+  -v /home/fly/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+  -v /home/fly/nginx/conf.d:/etc/nginx/conf.d \
+  -v /home/fly/nginx/html:/usr/share/nginx/html \
+  f0b8a9a54136
+
+
+docker run -d -p 8084:80 --name nginx-fly-4 \
+  -v /home/fly/nginx/html:/usr/share/nginx/html \
+  -v /home/fly/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
+  -v /home/fly/nginx/logs:/var/log/nginx \
+  f0b8a9a54136
+
+```
