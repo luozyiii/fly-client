@@ -442,18 +442,10 @@ docker run -d -p 7001:7001 --name fly-client fd0dca8fa8b3(镜像ID)
 scp -rp nginx root@112.74.201.142:/home/fly
 
 // nginx 服务部署,映射本地目录到nginx容器
-docker run -d -p 80:80 --name nginx-fly \
+docker run -d -p 8080:80 --name docker_nginx \
   -v /home/fly/nginx/logs:/var/log/nginx \
   -v /home/fly/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
   -v /home/fly/nginx/conf.d:/etc/nginx/conf.d \
   -v /home/fly/nginx/html:/usr/share/nginx/html \
-  f0b8a9a54136
-
-
-docker run -d -p 8084:80 --name nginx-fly-4 \
-  -v /home/fly/nginx/html:/usr/share/nginx/html \
-  -v /home/fly/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
-  -v /home/fly/nginx/logs:/var/log/nginx \
-  f0b8a9a54136
-
+  f0b8a9a54136(镜像ID)
 ```
