@@ -30,7 +30,7 @@ module.exports = appInfo => {
   };
 
   // 配置允许请求的host
-  config.allowHosts = [ 'localhost:8080', '127.0.0.1:8080', '112.74.201.142:8080' ];
+  config.allowHosts = [ 'localhost:8080', '127.0.0.1:8080', '112.74.201.142', '112.74.201.142:8080' ];
 
   // 接口限流配置
   config.interfaceLimit = {
@@ -48,7 +48,7 @@ module.exports = appInfo => {
   config.sequelize = {
     dialect: 'mysql',
     host: '112.74.201.142',
-    port: '3307',
+    port: '3308',
     user: 'root',
     password: 'abc123456',
     database: 'egg_fly',
