@@ -472,4 +472,7 @@ docker run -d -p 8080:80 --name docker_nginx \
   -v /home/fly/nginx/conf.d:/etc/nginx/conf.d \
   -v /home/fly/nginx/html:/usr/share/nginx/html \
   f0b8a9a54136(镜像ID)
+
+// 前端文件上传到 /home/fly/nginx/html 即可
+
 ```
