@@ -30,7 +30,7 @@ module.exports = appInfo => {
   };
 
   // 配置允许请求的host
-  config.allowHosts = [ 'localhost:8080', '127.0.0.1:8080', '10.0.9.4:8000' ];
+  config.allowHosts = [ 'localhost:8080', '127.0.0.1:8080', '10.0.9.4:8000', '112.74.201.142:8080' ];
 
   // 接口限流配置
   config.interfaceLimit = {
