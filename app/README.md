@@ -337,6 +337,30 @@ Comment.associate = () => {
 ```
 
 ### 项目部署
+- docker
+```javascript
+// 查询dockerhub中镜像
+docker search 镜像名称
+
+// 查看镜像信息列表 镜像是静态的
+docker images
+
+// 删除镜像
+docker rmi [imageID]
+
+// 查看运行中的所有容器
+docker ps -a
+
+// 进入容器
+docker exec -it [containerID] sh
+
+// 删除容器
+docker rm [containerID]
+
+// 从dockerhub拉取指定镜像
+docker pull  [images]:[version]
+
+```
 - mysql
 ```javascript
 // 查询镜像
