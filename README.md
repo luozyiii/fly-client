@@ -24,4 +24,17 @@ Fly，旅游项目（node服务）
 
 - 如何根据项目需求进行优化（框架扩展、中间件、公共类）
 
+## docker 部署 egg.js
+- Dockerfile
 
+```bash
+# 提前删除 node_mudules等忽略文件 再上传
+scp -r ./** root@112.74.201.142:/home/fly/server/
+cd /home/fly
+# 创建镜像
+docker build -t egg-fly:v1.0 ./server   
+# 创建启动容器
+docker run -d -p 7001:7001 --name fly-client xxxx(镜像id)
+# 7001(前面) 外网映射端口
+# 7001(后面) 容器内部端口
+```
